@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+const App = () => {
+    const course = 'Half Stack application development';
+    const part1 = 'Fundamentals of React';
+    const exercises1 = 10;
+    const part2 = 'Using props to pass data';
+    const exercises2 = 7;
+    const part3 = 'State of a component';
+    const exercises3 = 14;
 
-function App() {
-  const [count, setCount] = useState(0)
+    const info = {
+        part1: part1, exercises1: exercises1,
+        part2: part2, exercises2: exercises2,
+        part3: part3, exercises3: exercises3
+    };
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const Header = (props) => {
+        return (
+            <header>
+                <h1>{props.title}</h1>
+            </header>
+        );
+    };
+
+    const Part = (props) => {
+        const data = props.data;
+
+        return (
+            <p>Part{data.order} - {data.name} has {data.numberOfExercises} exercises</p>
+        )
+    }
+
+    const Content = (props) => {
+        const data = props.data;
+        const Part1 = {order: 1, name: part1, numberOfExercises: exercises1};
+        const Part2 = {order: 2, name: part2, numberOfExercises: exercises2};
+        const Part3 = {order: 3, name: part3, numberOfExercises: exercises3};
+        return (
+            // <>
+            //     <p>Part1 - {data.part1} has {data.exercises1} exercises</p>
+            //     <p>Part2 - {data.part2} has {data.exercises2} exercises</p>
+            //     <p>Part3 - {data.part3} has {data.exercises3} exercises</p>
+            // </>
+            <div>
+                <Part data={Part1}/>
+                <Part data={Part2}/>
+                <Part data={Part3}/>
+            </div>
+        );
+    };
+
+    const Total = (props) => {
+        const data = props.data;
+        return (
+            <>
+                <p>Number of exercises: {data.exercises1 + data.exercises2 + data.exercises3}</p>
+            </>
+        )
+    }
+    return (
+        <div>
+            <Header title={course}/>
+            <Content data={info}/>
+            <Total data={info}/>
+        </div>
+    )
 }
 
-export default App
+export default App;
